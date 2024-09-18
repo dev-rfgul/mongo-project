@@ -20,7 +20,6 @@
     </style>
 </head>
 <body class="bg-gray-100">
-
     <div class="min-h-screen flex flex-col items-center">
         <!-- Dark/Light Mode Toggle Button -->
         <div class="flex justify-end w-full max-w-4xl p-4">
@@ -36,24 +35,21 @@
         <div class="w-full max-w-4xl p-4">
             <h1 class="text-3xl font-bold mb-6 text-center">Users List</h1>
             
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- Dummy Data -->
-                <div class="bg-white p-6 rounded-lg shadow-md">
-                    <img src="https://via.placeholder.com/150" alt="John Doe" class="w-full h-40 object-cover rounded-md mb-4">
-                    <h2 class="text-xl font-semibold text-gray-700 mb-2">John Doe</h2>
-                    <p class="text-gray-700 mb-4">john@example.com</p>
+            <% if (allUsers.length > 0) { %>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <% allUsers.forEach(function(user) { %>
+                        <div class="bg-white p-6 rounded-lg shadow-md">
+                            <img src="<%= user.image %>" alt="<%= user.name %>" class="w-full h-40 object-cover rounded-md mb-4">
+                            <h2 class="text-xl font-semibold text-gray-700 mb-2"><%= user.name %></h2>
+                            <p class="text-gray-700 mb-4"><%= user.email %></p>
+                            <button class="text-blue-300">Edit User</button>
+                            <button class="text-blue-300"><a href="/delete/<%= user._id %>">Delete User</a></button>
+                        </div>  
+                    <% }) %>
                 </div>
-                <div class="bg-white p-6 rounded-lg shadow-md">
-                    <img src="https://via.placeholder.com/150" alt="Jane Smith" class="w-full h-40 object-cover rounded-md mb-4">
-                    <h2 class="text-xl font-semibold text-gray-700 mb-2">Jane Smith</h2>
-                    <p class="text-gray-700 mb-4">jane@example.com</p>
-                </div>
-                <div class="bg-white p-6 rounded-lg shadow-md">
-                    <img src="https://via.placeholder.com/150" alt="Alice Johnson" class="w-full h-40 object-cover rounded-md mb-4">
-                    <h2 class="text-xl font-semibold text-gray-700 mb-2">Alice Johnson</h2>
-                    <p class="text-gray-700 mb-4">alice@example.com</p>
-                </div>
-            </div>
+            <% } else { %>
+                <p class="text-center text-gray-700">No users have been created.</p>
+            <% } %>
         </div>
     </div>
 
@@ -68,4 +64,5 @@
         });
     </script>
 </body>
+
 </html>
