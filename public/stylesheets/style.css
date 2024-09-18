@@ -1,0 +1,20 @@
+body{
+    font: 'poppins', sans-serif;
+}
+  /* Custom styles for dark mode */
+  .dark-mode {
+    background-color: #1a202c; /* Dark background */
+    color: #ffffff; /* Light text */
+}
+.dark-mode input, .dark-mode label, .dark-mode button {
+    background-color: #2d3748; /* Darker background for input fields */
+    color: #ffffff; /* Light text */
+    border-color: #4a5568; /* Dark border */
+}
+/* Specific styles for input, label, and button elements */
+.dark-mode .bg-white {
+    background-color: #2d3748 !important;
+}
+.dark-mode .text-gray-700 {
+    color: #e2e8f0 !important;
+}

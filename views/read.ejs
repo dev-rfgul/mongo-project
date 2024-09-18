@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Users List</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css">
+    <style>
+        /* Custom styles for dark mode */
+        .dark-mode {
+            background-color: #1a202c; /* Dark background */
+            color: #ffffff; /* Light text */
+        }
+        .dark-mode .bg-white {
+            background-color: #2d3748 !important; /* Darker background for cards */
+        }
+        .dark-mode .text-gray-700 {
+            color: #e2e8f0 !important; /* Light text for dark mode */
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+
+    <div class="min-h-screen flex flex-col items-center">
+        <!-- Dark/Light Mode Toggle Button -->
+        <div class="flex justify-end w-full max-w-4xl p-4">
+            <button id="toggleMode" class="px-4 py-2 rounded-md bg-blue-500 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
+                Toggle Dark Mode
+            </button>
+            <a href="/" class="px-4 py-2 rounded-md bg-blue-500 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
+                back to home 
+            </a>
+        </div>
+
+        <!-- Users List -->
+        <div class="w-full max-w-4xl p-4">
+            <h1 class="text-3xl font-bold mb-6 text-center">Users List</h1>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Dummy Data -->
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <img src="https://via.placeholder.com/150" alt="John Doe" class="w-full h-40 object-cover rounded-md mb-4">
+                    <h2 class="text-xl font-semibold text-gray-700 mb-2">John Doe</h2>
+                    <p class="text-gray-700 mb-4">john@example.com</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <img src="https://via.placeholder.com/150" alt="Jane Smith" class="w-full h-40 object-cover rounded-md mb-4">
+                    <h2 class="text-xl font-semibold text-gray-700 mb-2">Jane Smith</h2>
+                    <p class="text-gray-700 mb-4">jane@example.com</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <img src="https://via.placeholder.com/150" alt="Alice Johnson" class="w-full h-40 object-cover rounded-md mb-4">
+                    <h2 class="text-xl font-semibold text-gray-700 mb-2">Alice Johnson</h2>
+                    <p class="text-gray-700 mb-4">alice@example.com</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Dark/Light Mode Toggle Script
+        const toggleButton = document.getElementById('toggleMode');
+        const body = document.body;
+
+        toggleButton.addEventListener('click', () => {
+            // Toggle dark mode on the body element
+            body.classList.toggle('dark-mode');
+        });
+    </script>
+</body>
+</html>
