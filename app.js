@@ -21,6 +21,15 @@ app.get('/read', async (req, res) => {
     }
 });
 
+app.get('/edit/:userid', async (req, res) => {
+    let user = await userModel.findOne({ _id: req.params.userid })
+    res.render('edit', { user })
+})
+app.get('/update/:userid', async (req, res) => {
+    let {image,name,email} = req.body;
+    let user = await userModel.findOneAndUpdate({ _id: req.params.userid },{name,image,email},{new:true})
+    res.redirect('/read', { user })
+})
 app.post('/create', async (req, res) => {
     let { name, email, image } = req.body;
 

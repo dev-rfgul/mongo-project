@@ -1,68 +1,90 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Users List</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css"
+    />
     <style>
-        /* Custom styles for dark mode */
-        .dark-mode {
-            background-color: #1a202c; /* Dark background */
-            color: #ffffff; /* Light text */
-        }
-        .dark-mode .bg-white {
-            background-color: #2d3748 !important; /* Darker background for cards */
-        }
-        .dark-mode .text-gray-700 {
-            color: #e2e8f0 !important; /* Light text for dark mode */
-        }
+      /* Custom styles for dark mode */
+      .dark-mode {
+        background-color: #1a202c; /* Dark background */
+        color: #ffffff; /* Light text */
+      }
+      .dark-mode .bg-white {
+        background-color: #2d3748 !important; /* Darker background for cards */
+      }
+      .dark-mode .text-gray-700 {
+        color: #e2e8f0 !important; /* Light text for dark mode */
+      }
     </style>
-</head>
-<body class="bg-gray-100">
+  </head>
+  <body class="bg-gray-100">
     <div class="min-h-screen flex flex-col items-center">
-        <!-- Dark/Light Mode Toggle Button -->
-        <div class="flex justify-end w-full max-w-4xl p-4">
-            <button id="toggleMode" class="px-4 py-2 rounded-md bg-blue-500 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
-                Toggle Dark Mode
-            </button>
-            <a href="/" class="px-4 py-2 rounded-md bg-blue-500 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
-                back to home 
-            </a>
-        </div>
+      <!-- Dark/Light Mode Toggle Button -->
+      <div class="flex justify-end w-full max-w-4xl p-4">
+        <button
+          id="toggleMode"
+          class="px-4 py-2 rounded-md bg-blue-500 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+        >
+          Toggle Dark Mode
+        </button>
+        <a
+          href="/"
+          class="px-4 py-2 rounded-md bg-blue-500 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+        >
+          back to home
+        </a>
+      </div>
 
-        <!-- Users List -->
-        <div class="w-full max-w-4xl p-4">
-            <h1 class="text-3xl font-bold mb-6 text-center">Users List</h1>
-            
-            <% if (allUsers.length > 0) { %>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <% allUsers.forEach(function(user) { %>
-                        <div class="bg-white p-6 rounded-lg shadow-md">
-                            <img src="<%= user.image %>" alt="<%= user.name %>" class="w-full h-40 object-cover rounded-md mb-4">
-                            <h2 class="text-xl font-semibold text-gray-700 mb-2"><%= user.name %></h2>
-                            <p class="text-gray-700 mb-4"><%= user.email %></p>
-                            <button class="text-blue-300">Edit User</button>
-                            <button class="text-blue-300"><a href="/delete/<%= user._id %>">Delete User</a></button>
-                        </div>  
-                    <% }) %>
-                </div>
-            <% } else { %>
-                <p class="text-center text-gray-700">No users have been created.</p>
-            <% } %>
+      <!-- Users List -->
+      <div class="w-full max-w-4xl p-4">
+        <h1 class="text-3xl font-bold mb-6 text-center">Users List</h1>
+
+        <% if (allUsers.length > 0) { %>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <% allUsers.forEach(function(user) { %>
+          <div class="bg-white p-6 rounded-lg shadow-md">
+            <img
+              src="<%= user.image %>"
+              alt="<%= user.name %>"
+              class="w-full h-40 object-cover rounded-md mb-4"
+            />
+            <h2 class="text-xl font-semibold text-gray-700 mb-2">
+              <%= user.name %>
+            </h2>
+            <p class="text-gray-700 mb-4"><%= user.email %></p>
+            <a
+              href="/edit/<%= user._id %>"
+              class="text-blue-300 bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-md transition duration-300"
+            >
+              Edit user
+            </a>
+
+            <button class="text-blue-300">
+              <a href="/delete/<%= user._id %>">Delete User</a>
+            </button>
+          </div>
+          <% }) %>
         </div>
+        <% } else { %>
+        <p class="text-center text-gray-700">No users have been created.</p>
+        <% } %>
+      </div>
     </div>
 
     <script>
-        // Dark/Light Mode Toggle Script
-        const toggleButton = document.getElementById('toggleMode');
-        const body = document.body;
+      // Dark/Light Mode Toggle Script
+      const toggleButton = document.getElementById("toggleMode");
+      const body = document.body;
 
-        toggleButton.addEventListener('click', () => {
-            // Toggle dark mode on the body element
-            body.classList.toggle('dark-mode');
-        });
+      toggleButton.addEventListener("click", () => {
+        // Toggle dark mode on the body element
+        body.classList.toggle("dark-mode");
+      });
     </script>
-</body>
-
+  </body>
 </html>
