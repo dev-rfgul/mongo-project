@@ -1,16 +1,17 @@
 const express = require('express');
-const app = express()
-const path = require('path')
-const userModel = require('./models/user')
+const app = express();
+const path = require('path');
+const userModel = require('./models/user');
 
 app.set("view engine", "ejs");
-app.use(express.json())
-app.use(express.urlencoded({ extended: true }))
-app.use(express.static(path.join(__dirname, 'public')))
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', (req, res) => {
-    res.render("index")
-})
+    res.render("index");
+});
+
 app.get('/read', async (req, res) => {
     try {
         let allUsers = await userModel.find();
@@ -22,34 +23,52 @@ app.get('/read', async (req, res) => {
 });
 
 app.get('/edit/:userid', async (req, res) => {
-    let user = await userModel.findOne({ _id: req.params.userid })
-    res.render('edit', { user })
-})
-app.get('/update/:userid', async (req, res) => {
-    let {image,name,email} = req.body;
-    let user = await userModel.findOneAndUpdate({ _id: req.params.userid },{name,image,email},{new:true})
-    res.redirect('/read', { user })
-})
+    try {
+        let user = await userModel.findOne({ _id: req.params.userid });
+        res.render('edit', { user });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
+// Change to POST method for updating
+app.post('/update/:userid', async (req, res) => {
+    const { image, name, email } = req.body;
+    try {
+        await userModel.findOneAndUpdate(
+            { _id: req.params.userid },
+            { name, image, email },
+            { new: true }
+        );
+        res.redirect('/read'); // Redirect to the users list after update
+    } catch (error) {
+        console.error('Error updating user:', error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
 app.post('/create', async (req, res) => {
-    let { name, email, image } = req.body;
+    const { name, email, image } = req.body;
+    try {
+        await userModel.create({ name, email, image });
+        res.redirect('/read');
+    } catch (error) {
+        console.error('Error creating user:', error);
+        res.status(500).send('Internal Server Error');
+    }
+});
 
-    let createdUser = await userModel.create({
-        // name:name,
-        // email:email,
-        // image:image,
-
-        //this can be also done in this way
-
-        name,
-        email,
-        image
-    })
-    res.redirect('/read')
-
-})
 app.get('/delete/:id', async (req, res) => {
-    let users = await userModel.findOneAndDelete({ _id: req.params.id }
-    )
-    res.redirect('/read')
-})
-app.listen(3000)
+    try {
+        await userModel.findOneAndDelete({ _id: req.params.id });
+        res.redirect('/read');
+    } catch (error) {
+        console.error('Error deleting user:', error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
+app.listen(3000, () => {
+    console.log('Server is running on port 3000');
+});
